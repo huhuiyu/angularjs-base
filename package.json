@@ -1,0 +1,32 @@
+{
+  "name": "angularjs.base",
+  "version": "1.0.0",
+  "description": "angularjs基础项目",
+  "author": "胡辉煜",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/huhuiyu/angularjs-base.git"
+  },
+  "license": "Apache-2.0",
+  "devDependencies": {},
+  "dependencies": {
+    "angular": "1.7.4",
+    "angular-animate": "1.7.4",
+    "angular-cookies": "1.7.4",
+    "angular-messages": "1.7.4",
+    "angular-route": "1.7.4",
+    "angular-sanitize": "1.7.4",
+    "bootstrap3": "3.3.5",
+    "del": "3.0.0",
+    "gulp": "3.9.1",
+    "gulp-clean-css": "3.10.0",
+    "gulp-concat": "2.6.1",
+    "gulp-file-sync": "2.0.0",
+    "gulp-jshint": "2.1.0",
+    "gulp-plumber": "1.2.0",
+    "gulp-uglify": "3.0.1",
+    "gulp-watch": "5.0.1",
+    "jquery": "3.3.1",
+    "jshint": "2.9.6"
+  }
+}

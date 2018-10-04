@@ -8,3 +8,11 @@
 - 控制台中执行`cnpm install`安装项目依赖
 
 ## 项目开发部分
+- 路径修改
+  - 修改`browser.js`中浏览器执行文件的路径 
+  - 修改`nginx-start.bat`中的nginx所在路径
+  - 修改`nginx-stop.bat`中的nginx所在路径
+- 第一次需要在控制台执行`gulp`初始化项目打包
+- 开发模式
+  - 控制台中执行`rundev`启动nginx服务并进入开发模式
+  - 控制台按`ctrl+C`中断开发模式，执行`nginx-stop`停止nginx服务

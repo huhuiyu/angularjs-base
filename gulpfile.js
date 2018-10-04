@@ -25,6 +25,8 @@ const distCssDir = distDir + 'css/'; //目标css目录
 const distFontsDir = distDir + 'fonts/'; //目标字体目录
 const distImagessDir = distDir + 'images/'; //目标图片目录
 
+var includeTest = true; //是否包含test目录
+
 /*清理发布*/
 gulp.task('clear', function() {
   del.sync([distDir + '**/*'], {
@@ -75,12 +77,18 @@ gulp.task('lib', ['jslib', 'csslib', 'fonts'], function() {
 /*图片文件处理*/
 gulp.task('images', function() {
   sync(imagesDir, distImagessDir);
+  if (!includeTest) {
+    del.sync(distImagessDir + 'test/');
+  }
 });
 
 /*项目html文件*/
 gulp.task('html', function() {
   sync(appHtmlTempDir, distHtmlTempDir);
   gulp.src([appHtmlDir + 'index.html']).pipe(gulp.dest(distDir));
+  if (!includeTest) {
+    del.sync(distHtmlTempDir + 'test/');
+  }
 });
 
 /*项目js文件*/
@@ -90,6 +98,9 @@ gulp.task('js', function() {
   jsfiles.push(appJsDir + 'services/**/*.js');
   jsfiles.push(appJsDir + 'directives/**/*.js');
   jsfiles.push(appJsDir + 'controllers/**/*.js');
+  if (includeTest) {
+    jsfiles.push(appJsDir + 'test/**/*.js');
+  }
   jsfiles.push(appJsDir + 'startup.js');
 
   return gulp
@@ -108,6 +119,10 @@ gulp.task('css', function() {
   var cssfiles = [];
   cssfiles.push(appCssDir + 'common.css');
   cssfiles.push(appCssDir + '**/*.css');
+  if (!includeTest) {
+    cssfiles.push('!' + appCssDir + 'test/*.css');
+  }
+
   return gulp
     .src(cssfiles)
     .pipe(plumber())
@@ -121,8 +136,12 @@ gulp.task('dev', ['images', 'html', 'js', 'css'], function() {
   console.log('处理开发任务');
 });
 
+gulp.task('exclude-test', function() {
+  includeTest = false;
+});
+
 /*默认打包任务*/
-gulp.task('default', ['clear', 'lib', 'dev'], function() {
+gulp.task('default', ['exclude-test', 'clear', 'lib', 'dev'], function() {
   console.log('打包任务完成');
 });
 
@@ -144,3 +163,5 @@ gulp.task('watch', ['dev'], function() {
     gulp.start('images');
   });
 });
+
+gulp.task('test', function() {});

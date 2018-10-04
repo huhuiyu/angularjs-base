@@ -7,6 +7,7 @@ const mincss = require('gulp-clean-css');
 const del = require('del');
 const sync = require('gulp-file-sync');
 const watch = require('gulp-watch');
+const sourcemaps = require('gulp-sourcemaps');
 
 const baseDir = __dirname.replace(/[\\]/g, '/') + '/'; //应用程序根目录
 const srcDir = baseDir + 'src/'; //源代码目录
@@ -106,10 +107,12 @@ gulp.task('js', function() {
   return gulp
     .src(jsfiles)
     .pipe(plumber())
+    .pipe(sourcemaps.init())
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
     .pipe(concat('app.min.js'))
     .pipe(uglify())
+    .pipe(sourcemaps.write('.'))
     .pipe(plumber.stop())
     .pipe(gulp.dest(distJsDir));
 });
@@ -136,12 +139,15 @@ gulp.task('dev', ['images', 'html', 'js', 'css'], function() {
   console.log('处理开发任务');
 });
 
+/*排除test*/
 gulp.task('exclude-test', function() {
   includeTest = false;
+  console.log('排除test文件');
 });
 
 /*默认打包任务*/
 gulp.task('default', ['exclude-test', 'clear', 'lib', 'dev'], function() {
+  del.sync(distJsDir + '*.map');
   console.log('打包任务完成');
 });
 

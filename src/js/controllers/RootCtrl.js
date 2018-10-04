@@ -5,6 +5,7 @@
     '$scope',
     '$log',
     '$location',
+    'DialogService',
     'DataService',
     RootCtrl
   ]);
@@ -14,6 +15,7 @@
     $scope,
     $log,
     $location,
+    DialogService,
     DataService
   ) {
     $log.debug('RootCtrl init...', $location.path());
@@ -22,7 +24,7 @@
     $scope.$on('$destroy', function() {
       $log.debug('RootCtrl destroy...');
     });
-
+    DialogService.setDialogTitle($rootScope.appTitle);
     DataService.setDataServer('http://127.0.0.1:10000');
 
     // 监听视图切换

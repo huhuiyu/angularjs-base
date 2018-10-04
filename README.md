@@ -18,4 +18,4 @@
 - 第一次需要在控制台执行`gulp`初始化项目打包
 - 开发模式
   - 控制台中执行`rundev`启动nginx服务并进入开发模式
-  - 控制台按`ctrl+C`中断开发模式，执行`nginx-stop`停止nginx服务
+  - 控制台按`ctrl+C`后输入`y`中断开发模式，然后执行`nginx-stop`停止nginx服务

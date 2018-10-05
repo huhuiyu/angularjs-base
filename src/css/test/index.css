@@ -1,0 +1,33 @@
+.test-index {
+  padding: 10px 0px;
+  overflow-x: hidden;
+}
+.test-index .include {
+  position: absolute;
+  width: 100%;
+}
+
+.test-index .ng-leave {
+  animation: test-index-change-leave 0.5s;
+}
+
+.test-index .ng-enter {
+  animation: test-index-change-enter 0.5s;
+}
+
+@keyframes test-index-change-leave {
+  from {
+    left: 0;
+  }
+  to {
+    left: -100%;
+  }
+}
+@keyframes test-index-change-enter {
+  from {
+    left: 100%;
+  }
+  to {
+    left: 0;
+  }
+}

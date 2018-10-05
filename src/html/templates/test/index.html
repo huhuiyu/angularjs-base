@@ -1,3 +1,6 @@
-<div class="text-center">
-  
+<div class="test-index text-center" ng-controller="TestIndexCtrl">
+  <span class="btn btn-danger" ng-click="changePage('dialog')">对话框演示</span>
+  <span class="btn btn-danger" ng-click="changePage('data')">数据服务演示</span>
+  <hr>
+  <div ng-include='demopage' class="include"></div>
 </div>

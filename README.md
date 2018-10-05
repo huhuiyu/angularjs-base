@@ -47,7 +47,7 @@
   - [node_modules](node_modules)是 nodejs 的模块目录(被 git 忽略)
   - [dist](dist)是项目打包后的目录，也是 nginx 的 web 根目录(被 git 忽略)
 - 开发步骤说明
-  - 第一步：在[templates](src/html/templates)中创建 html 文件
+  - 第一步：在[templates](src/html/templates)中创建 html 文件，地址栏访问路径为/#!/route/page/目录/文件名(不加扩展名)
   - 第二步：html 中的顶级元素为 div，指定控制器名称来绑定 js 文件，命名规则为目录名称+控制器名称+Ctrl.js(使用驼峰表达式)，控制器 js 目录为[src/js/controllers](src/js/controllers)
   - 第三步：html 中的顶级元素指定 class 名称限定 css 作用域，命名规则为目录名称-页面名称,全部小写
   - 示例：templates 中创建 user 目录，里面创建 index.html，那么需要控制器 js 目录里面创建 user 目录，里面创建 IndexCtrl.js，控制器名称为 UserIndexCtrl。css 文件夹中创建 user 目录，里面创建 index.css，限定 css 类名为 user-index

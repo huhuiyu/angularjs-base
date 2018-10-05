@@ -123,7 +123,7 @@ gulp.task('css', function() {
   cssfiles.push(appCssDir + 'common.css');
   cssfiles.push(appCssDir + '**/*.css');
   if (!includeTest) {
-    cssfiles.push('!' + appCssDir + 'test/*.css');
+    cssfiles.push('!' + appCssDir + 'test/**/*.css');
   }
 
   return gulp

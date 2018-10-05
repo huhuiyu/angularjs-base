@@ -9,6 +9,6 @@
     $scope.$on('$destroy', function() {
       $log.debug('IndexCtrl destroy...');
     });
-
+    
   }
 })();

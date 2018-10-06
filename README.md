@@ -3,15 +3,18 @@
 ## 全局配置初始化部分，只需要执行一次
 
 - 项目依赖 nodejs 和 nginx
-  - [下载 nodejs](https://nodejs.org/dist/v8.12.0/node-v8.12.0-x64.msi)
-  - [下载 nginx](http://nginx.org/download/nginx-1.14.0.zip)
+  - [下载 nodejs](https://nodejs.org/dist/v8.12.0/node-v8.12.0-x64.msi)并安装
+  - 控制台中执行`node -v`确认 node 已经正确安装
+  - [下载 nginx](http://nginx.org/download/nginx-1.14.0.zip)并解压
 - 控制台中执行`npm install -g cnpm --registry=https://registry.npm.taobao.org`全局安装 cnpm 并注册淘宝的 npm 源
 - 控制台中执行`cnpm install -g gulp`全局安装 gulp
-- 控制台中执行`cnpm install`安装项目依赖
-- [package.json](package.json)是项目依赖配置文件
+- 控制台中执行`cnpm -v`确认 cnpm 已经正确安装
 
 ## 项目开发部分
 
+- 控制台中执行`cnpm install`安装项目依赖（只有第一次需要执行）
+- [package.json](package.json)是项目依赖配置文件
+- 在控制台执行`gulp`初始化项目打包（只有第一次需要执行）
 - 脚本文件说明
   - [nginx-start.bat](nginx-start.bat)是 nginx 服务启动脚本
   - [nginx-stop.bat](nginx-stop.bat)是 nginx 服务关闭脚本
@@ -25,7 +28,6 @@
   - 修改[nginx-start.bat](nginx-start.bat)中的 nginx 所在路径
   - 修改[nginx-stop.bat](nginx-stop.bat)中的 nginx 所在路径
   - 在 nginx 目录中创建 temp 和 logs 目录
-- 第一次需要在控制台执行`gulp`初始化项目打包
 - 开发模式
   - 控制台中执行`.\rundev.bat`启动 nginx 服务并进入开发模式
   - 控制台按`ctrl+C`后输入`y`中断开发模式，然后执行`.\nginx-stop.bat`停止 nginx 服务

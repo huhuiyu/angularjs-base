@@ -1,1 +1,2 @@
 node browser.js
+exit

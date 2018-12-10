@@ -1,30 +1,33 @@
 (function(win) {
-  win.MyAppConfig = {
+  //自定义配置
+  var MyAppConfig = {
+    //项目模块名称
     name: 'myapp',
-    title: 'angularjs样板项目'
+    //是否启动debug
+    debug: true,
+    //项目标题
+    title: 'angularjs样板项目',
+    //控制器，服务，指令三大模块
+    controllers: 'controllers',
+    services: 'services',
+    directives: 'directives'
   };
 
-  //第一个myapp的模块，引用controllers模块
-  var app = angular.module(MyAppConfig.name, [
-    'ngRoute',
-    'ngCookies',
-    'ngSanitize',
-    'ngAnimate',
-    'ngMessages',
-    'controllers',
-    'services',
-    'directives'
-  ]);
+  win.MyAppConfig = MyAppConfig;
+
   // 初始化控制器，服务，指令三大模块
-  angular.module('controllers', []);
-  angular.module('services', []);
-  angular.module('directives', []);
+  angular.module(MyAppConfig.controllers, []);
+  angular.module(MyAppConfig.services, []);
+  angular.module(MyAppConfig.directives, []);
+
+  //第一个myapp的模块，引用controllers模块
+  var app = angular.module(MyAppConfig.name, ['ngRoute', 'ngCookies', 'ngSanitize', 'ngAnimate', 'ngMessages', MyAppConfig.controllers, MyAppConfig.services, MyAppConfig.directives]);
 
   //配置日志是否开启debug
   app.config([
     '$logProvider',
     function($logProvider) {
-      $logProvider.debugEnabled(true);
+      $logProvider.debugEnabled(MyAppConfig.debug);
     }
   ]);
 
@@ -33,8 +36,7 @@
     '$httpProvider',
     function($httpProvider) {
       /* post提交可以使用json数据 */
-      $httpProvider.defaults.headers.post['Content-Type'] =
-        'application/x-www-form-urlencoded;charset=utf-8';
+      $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
       var parseParams = function(params) {
         // 参数处理
         var query = '',
@@ -64,8 +66,7 @@
               query += parseParams(innerObj) + '&';
             }
           } else if (value !== undefined && value !== null) {
-            query +=
-              encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
+            query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
           }
         }
         var querydata = query;
@@ -111,6 +112,7 @@
     '$routeProvider',
     function($routeProvider) {
       $routeProvider
+        //默认页面
         .when('', {
           templateUrl: 'templates/index.html'
         })
@@ -120,9 +122,11 @@
         .when('/index', {
           templateUrl: 'templates/index.html'
         })
+        //动态路由,由route.html和RouteCtrl控制
         .when('/route/:path*', {
           templateUrl: 'templates/route.html'
         })
+        //没有配置的其它页面
         .otherwise({
           templateUrl: 'templates/index.html'
         });

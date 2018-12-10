@@ -1,12 +1,6 @@
 (function() {
-  var ctrls = angular.module('controllers');
-  ctrls.controller('RouteCtrl', [
-    '$scope',
-    '$log',
-    '$routeParams',
-    '$location',
-    RouteCtrl
-  ]);
+  var ctrls = angular.module(MyAppConfig.controllers);
+  ctrls.controller('RouteCtrl', ['$scope', '$log', '$routeParams', '$location', RouteCtrl]);
 
   var key = 'page/';
   var templatePath = 'templates/';
@@ -23,12 +17,7 @@
     $scope.init = function() {
       var page = $routeParams.path.replace(key, '');
       $log.debug('RouteCtrl init...', page);
-      $scope.template =
-        templatePath +
-        page +
-        templateExt +
-        '?pagetimestamp=' +
-        new Date().getTime();
+      $scope.template = templatePath + page + templateExt + '?pagetimestamp=' + new Date().getTime();
       $log.debug('RouteCtrl template:', $scope.template);
     };
 

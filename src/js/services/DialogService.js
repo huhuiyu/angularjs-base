@@ -2,14 +2,9 @@
  * 对话框服务
  */
 (function() {
-  var app = angular.module('services');
+  var app = angular.module(MyAppConfig.services);
 
-  app.factory('DialogService', [
-    '$rootScope',
-    '$log',
-    '$timeout',
-    DialogService
-  ]);
+  app.factory('DialogService', ['$rootScope', '$log', '$timeout', DialogService]);
 
   function DialogService($rootScope, $log, $timeout) {
     $log.info('DialogService init...');

@@ -2,27 +2,10 @@
  * 工具类服务，组合服务工具类
  */
 (function() {
-  var app = angular.module('services');
+  var app = angular.module(MyAppConfig.services);
   // 创建工具服务
-  app.factory('MyUtilService', [
-    '$rootScope',
-    '$log',
-    '$sce',
-    '$anchorScroll',
-    '$timeout',
-    '$location',
-    '$interval',
-    MyUtilService
-  ]);
-  function MyUtilService(
-    $rootScope,
-    $log,
-    $sce,
-    $anchorScroll,
-    $timeout,
-    $location,
-    $interval
-  ) {
+  app.factory('MyUtilService', ['$rootScope', '$log', '$sce', '$anchorScroll', '$timeout', '$location', '$interval', MyUtilService]);
+  function MyUtilService($rootScope, $log, $sce, $anchorScroll, $timeout, $location, $interval) {
     $log.info('MyUtilService init...');
 
     var service = {};
@@ -106,9 +89,7 @@
           info.mobile = info.iPhone || info.android || info.webApp;
           return info;
         })(),
-        language: (
-          navigator.browserLanguage || navigator.language
-        ).toLowerCase()
+        language: (navigator.browserLanguage || navigator.language).toLowerCase()
       };
       return browserInfo;
     };
@@ -164,24 +145,21 @@
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;');
-      json = json.replace(
-        /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
-        function(match) {
-          var style = 'number';
-          if (/^"/.test(match)) {
-            if (/:$/.test(match)) {
-              style = 'key';
-            } else {
-              style = 'string';
-            }
-          } else if (/true|false/.test(match)) {
-            style = 'boolean';
-          } else if (/null/.test(match)) {
-            style = 'other';
+      json = json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
+        var style = 'number';
+        if (/^"/.test(match)) {
+          if (/:$/.test(match)) {
+            style = 'key';
+          } else {
+            style = 'string';
           }
-          return '<span style="' + styles[style] + '">' + match + '</span>';
+        } else if (/true|false/.test(match)) {
+          style = 'boolean';
+        } else if (/null/.test(match)) {
+          style = 'other';
         }
-      );
+        return '<span style="' + styles[style] + '">' + match + '</span>';
+      });
       return json;
     };
 
@@ -201,23 +179,21 @@
     function MD5Encoder() {}
 
     /*
-         * Convert a 32-bit number to a hex string with ls-byte first
-         */
+     * Convert a 32-bit number to a hex string with ls-byte first
+     */
     MD5Encoder.rhex = function(num) {
       var hex_chr = '0123456789abcdef';
       str = '';
       for (j = 0; j <= 3; j++) {
-        str +=
-          hex_chr.charAt((num >> (j * 8 + 4)) & 0x0f) +
-          hex_chr.charAt((num >> (j * 8)) & 0x0f);
+        str += hex_chr.charAt((num >> (j * 8 + 4)) & 0x0f) + hex_chr.charAt((num >> (j * 8)) & 0x0f);
       }
       return str;
     };
 
     /*
-         * Convert a string to a sequence of 16-word blocks, stored as an array.
-         * Append padding bits and the length, as described in the MD5 standard.
-         */
+     * Convert a string to a sequence of 16-word blocks, stored as an array.
+     * Append padding bits and the length, as described in the MD5 standard.
+     */
     MD5Encoder.str2blks_MD5 = function(str) {
       nblk = ((str.length + 8) >> 6) + 1;
       blks = new Array(nblk * 16);
@@ -231,9 +207,9 @@
     };
 
     /*
-         * Add integers, wrapping at 2^32. This uses 16-bit operations
-         * internally to work around bugs in some JS interpreters.
-         */
+     * Add integers, wrapping at 2^32. This uses 16-bit operations
+     * internally to work around bugs in some JS interpreters.
+     */
     MD5Encoder.add = function(x, y) {
       var lsw = (x & 0xffff) + (y & 0xffff);
       var msw = (x >> 16) + (y >> 16) + (lsw >> 16);
@@ -241,24 +217,18 @@
     };
 
     /*
-         * Bitwise rotate a 32-bit number to the left
-         */
+     * Bitwise rotate a 32-bit number to the left
+     */
     MD5Encoder.rol = function(num, cnt) {
       return (num << cnt) | (num >>> (32 - cnt));
     };
 
     /*
-         * These functions implement the basic operation for each round of the
-         * algorithm.
-         */
+     * These functions implement the basic operation for each round of the
+     * algorithm.
+     */
     MD5Encoder.cmn = function(q, a, b, x, s, t) {
-      return MD5Encoder.add(
-        MD5Encoder.rol(
-          MD5Encoder.add(MD5Encoder.add(a, q), MD5Encoder.add(x, t)),
-          s
-        ),
-        b
-      );
+      return MD5Encoder.add(MD5Encoder.rol(MD5Encoder.add(MD5Encoder.add(a, q), MD5Encoder.add(x, t)), s), b);
     };
     MD5Encoder.ff = function(a, b, c, d, x, s, t) {
       return MD5Encoder.cmn((b & c) | (~b & d), a, b, x, s, t);
@@ -274,8 +244,8 @@
     };
 
     /*
-         * Take a string and return the hex representation of its MD5.
-         */
+     * Take a string and return the hex representation of its MD5.
+     */
     MD5Encoder.calcMD5 = function(str) {
       x = MD5Encoder.str2blks_MD5(str);
       a = 1732584193;
@@ -362,12 +332,7 @@
         c = MD5Encoder.add(c, oldc);
         d = MD5Encoder.add(d, oldd);
       }
-      return (
-        MD5Encoder.rhex(a) +
-        MD5Encoder.rhex(b) +
-        MD5Encoder.rhex(c) +
-        MD5Encoder.rhex(d)
-      );
+      return MD5Encoder.rhex(a) + MD5Encoder.rhex(b) + MD5Encoder.rhex(c) + MD5Encoder.rhex(d);
     };
 
     service.md5 = function(str) {

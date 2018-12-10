@@ -1,5 +1,5 @@
 (function() {
-  var app = angular.module('directives');
+  var app = angular.module(MyAppConfig.directives);
 
   /**
    * 按照指定给是显示时间戳的指令

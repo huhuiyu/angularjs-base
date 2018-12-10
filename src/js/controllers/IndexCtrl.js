@@ -1,5 +1,5 @@
 (function() {
-  var ctrls = angular.module('controllers');
+  var ctrls = angular.module(MyAppConfig.controllers);
   ctrls.controller('IndexCtrl', ['$scope', '$log', IndexCtrl]);
 
   function IndexCtrl($scope, $log) {
@@ -9,6 +9,5 @@
     $scope.$on('$destroy', function() {
       $log.debug('IndexCtrl destroy...');
     });
-    
   }
 })();

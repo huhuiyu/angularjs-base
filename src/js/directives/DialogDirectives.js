@@ -2,7 +2,7 @@
  * 对话框自定义指令
  */
 (function() {
-  var app = angular.module('directives');
+  var app = angular.module(MyAppConfig.directives);
 
   var alertDialogTemplate =
     "<div class='modal' data-backdrop='static' data-keyboard='false' tabindex='-1' role='dialog' style='z-index: 1990;'>    <div class='modal-dialog modal-sm' role='document'>        <div class='modal-content'>            <div class='modal-header'>                <button type='button' class='close' data-dismiss='modal' aria-label='Close'>                    <span aria-hidden='true'>&times;</span>                </button>                <h4 class='modal-title' ng-bind='alertTitle'></h4>            </div>            <div class='modal-body'>                <div ng-bind-html='alertInfo'></div>            </div>            <div class='modal-footer'>                <button type='button' class='btn btn-default' data-dismiss='modal' ng-bind-html='alertBtnOk'></button>            </div>        </div>    </div></div>";

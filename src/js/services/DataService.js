@@ -2,26 +2,11 @@
  * 数据服务
  */
 (function() {
-  var app = angular.module('services');
+  var app = angular.module(MyAppConfig.services);
 
-  app.factory('DataService', [
-    '$log',
-    '$rootScope',
-    '$http',
-    '$timeout',
-    'MyCookieService',
-    'MyUtilService',
-    DataService
-  ]);
+  app.factory('DataService', ['$log', '$http', 'MyCookieService', 'MyUtilService', DataService]);
 
-  function DataService(
-    $log,
-    $rootScope,
-    $http,
-    $timeout,
-    MyCookieService,
-    MyUtilService
-  ) {
+  function DataService($log, $http, MyCookieService, MyUtilService) {
     $log.info('DataService init...');
     var errorInfo = { success: false, message: '请检查网络状态', code: 404 };
 
@@ -49,11 +34,7 @@
         function(data, status) {
           $log.debug(data, status);
           //处理服务器token
-          if (
-            data.data &&
-            data.data.servertoken &&
-            !MyUtilService.empty(MyUtilService.trim(data.data.servertoken))
-          ) {
+          if (data.data && data.data.servertoken && !MyUtilService.empty(MyUtilService.trim(data.data.servertoken))) {
             MyCookieService.putLocalData(servertokenKey, data.data.servertoken);
           }
           (cb || angular.noop)(data.data);

@@ -2,7 +2,7 @@
  * 时间服务
  */
 (function() {
-  var app = angular.module('services');
+  var app = angular.module(MyAppConfig.services);
 
   app.factory('DateTimeService', ['$log', DateTimeService]);
 

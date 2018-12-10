@@ -2,14 +2,9 @@
  * Cookie服务
  */
 (function() {
-  var app = angular.module('services');
+  var app = angular.module(MyAppConfig.services);
   // 创建cookie服务
-  app.factory('MyCookieService', [
-    '$log',
-    '$cookies',
-    '$window',
-    MyCookieService
-  ]);
+  app.factory('MyCookieService', ['$log', '$cookies', '$window', MyCookieService]);
 
   function MyCookieService($log, $cookies, $window) {
     $log.info('MyCookieService init...');
@@ -19,14 +14,7 @@
     // 保存超长过期时间的cookie
     service.putSuperExpiresData = function(key, value, path) {
       var expires = getExpiresDate(superExpires);
-      $log.debug(
-        'MyCookieService putSuperExpiresData;',
-        key,
-        '-',
-        value,
-        ':',
-        expires
-      );
+      $log.debug('MyCookieService putSuperExpiresData;', key, '-', value, ':', expires);
       var options = {};
       options.expires = expires;
       if (path) {
